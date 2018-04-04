@@ -1,11 +1,14 @@
 package com.gray.reader;
 
+import android.content.Context;
+import android.graphics.Rect;
 import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -27,8 +30,6 @@ public class MainActivity extends AppCompatActivity {
             "姑架子床外值夜的丫鬟灵偃正在望着窗户发呆，听到银香球落地的声音，打了一个激灵，轻手轻脚的掀起一角床帘查看，" +
             "见萧源已经睁开了眼睛，就轻声说：“夫人说这几天天气太冷，姑娘们身子又弱，就不用这么早起身请安了，让你们多睡一会，" +
             "身请安了，让你们" + "\n" +
-            "\n" +
-            "\n" +
             "\n" +
             "一夜，天还没亮，屋里漆黑一片，只有落地花罩外一盏小小的宫灯正发着微弱的黄光。\n" +
             "\n" +
@@ -69,6 +70,21 @@ public class MainActivity extends AppCompatActivity {
 //        mSlidingLayout.setSlider(new PageSlider());
     }
 
+    /**
+     * 根据手机的分辨率从 dp 的单位 转成为 px(像素)
+     */
+    public int dip2px(float dpValue) {
+        final float scale = getResources().getDisplayMetrics().density;
+        return (int) (dpValue * scale + 0.5f);
+    }
+
+    /**
+     * 根据手机的分辨率从 px(像素) 的单位 转成为 dp
+     */
+    public int px2dip(float pxValue) {
+        final float scale = getResources().getDisplayMetrics().density;
+        return (int) (pxValue / scale + 0.5f);
+    }
 
     class VPAdapter extends PagerAdapter {
 
@@ -90,6 +106,11 @@ public class MainActivity extends AppCompatActivity {
             View view = from.inflate(R.layout.layout_normal_book, container, false);
             ReadTextView tv = view.findViewById(R.id.content);
             container.addView(view);
+            int heightPixels = getResources().getDisplayMetrics().heightPixels;
+            int height = heightPixels - dip2px(50);
+            Log.e("height", height + "");
+            int lineBounds = tv.getLineBounds(1, new Rect());
+            Log.e("lineBounds", lineBounds + "");
             tv.setText(content);
             return view;
         }
@@ -101,5 +122,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
+
 }
 
