@@ -9,7 +9,7 @@ import android.widget.TextView;
 /**
  * @author wjy on 2018/4/4.
  */
-class ReadTextView extends TextView {
+class ReadTextView extends AppCompatTextView {
     public ReadTextView(Context context) {
         super(context);
     }
@@ -22,10 +22,9 @@ class ReadTextView extends TextView {
         super(context, attrs, defStyle);
     }
 
-    public void setText(String s) {
-        int height = getHeight();
-        int width = getWidth();
-
-        super.setText(height + "==" + width);
-    }
+//    public void setText(String s) {
+//        int height = getHeight();
+//        int width = getWidth();
+//        super.setText(height + "==" + width);
+//    }
 }

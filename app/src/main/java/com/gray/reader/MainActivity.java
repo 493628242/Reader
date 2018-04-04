@@ -6,6 +6,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
 //        mSlidingLayout.setSlider(new PageSlider());
     }
 
+
     class VPAdapter extends PagerAdapter {
 
         @Override
@@ -84,8 +86,12 @@ public class MainActivity extends AppCompatActivity {
         @NonNull
         @Override
         public Object instantiateItem(@NonNull ViewGroup container, int position) {
-
-            return super.instantiateItem(container, position);
+            LayoutInflater from = LayoutInflater.from(container.getContext());
+            View view = from.inflate(R.layout.layout_normal_book, container, false);
+            ReadTextView tv = view.findViewById(R.id.content);
+            container.addView(view);
+            tv.setText(content);
+            return view;
         }
 
         @Override
